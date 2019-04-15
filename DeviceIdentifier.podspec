@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "DeviceIdentifier"
-  spec.version      = "0.0.1"
+  spec.version      = "0.0.2b"
   spec.summary      = "A library for the DeviceIdentifier API at https://docs.reincubate.com/deviceidentifier/."
 
   # This description is used to generate tags and improve search results.
@@ -25,7 +25,7 @@ Pod::Spec.new do |spec|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   spec.description  = <<-DESC
-  			A simple parsing library for https://docs.reincubate.com/deviceidentifier/
+  			A simple parsing library for https://docs.reincubate.com/deviceidentifier/. Uses Alamofire and Alamofire_Swiftyjson. Still in betaTM.
                    DESC
 
   spec.homepage     = "https://github.com/128keaton/DeviceIdentifier"
@@ -72,7 +72,7 @@ Pod::Spec.new do |spec|
   # spec.watchos.deployment_target = "2.0"
   # spec.tvos.deployment_target = "9.0"
 
-	spec.osx.deployment_target = "10.12"
+   spec.osx.deployment_target = "10.12"
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -91,7 +91,7 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "Classes", "./**/*.{swift}"
+  spec.source_files  = "Classes", "**/*.{swift}"
 
   # spec.public_header_files = "Classes/**/*.h"
 
@@ -136,5 +136,5 @@ Pod::Spec.new do |spec|
 
   spec.dependency 'Alamofire'
   spec.dependency 'Alamofire-SwiftyJSON'
-  
+  spec.swift_version = '4.0', '5.0' 
 end
