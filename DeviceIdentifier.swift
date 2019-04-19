@@ -13,6 +13,7 @@ import SwiftyJSON
 
 class DeviceIdentifier {
     static let shared = DeviceIdentifier()
+    static let didSetupNotification: Notification.Name = Notification.Name(rawValue: "DeviceIdentifierReady")
 
     private class Config {
         var authenticationToken: String?
@@ -23,6 +24,7 @@ class DeviceIdentifier {
 
     static func setup(authenticationToken: String) {
         DeviceIdentifier.config.authenticationToken = authenticationToken
+        NotificationCenter.default.post(name: didSetupNotification, object: nil)
     }
     
     static var isConfigured: Bool {
