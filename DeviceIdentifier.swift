@@ -24,12 +24,23 @@ class DeviceIdentifier {
     static func setup(authenticationToken: String) {
         DeviceIdentifier.config.authenticationToken = authenticationToken
     }
+    
+    static var isConfigured: Bool {
+        return self.config.authenticationToken != nil
+    }
 
     private init() {
         if DeviceIdentifier.config.authenticationToken == nil {
             fatalError("Error - you must call setup before accessing DeviceIdentifier.shared")
         }
 
+    }
+    
+    public func getCachedDeviceFor(serialNumber: String) -> DeviceInfo? {
+        if(cachedDeviceInformation.keys.contains(serialNumber)){
+            return DeviceInfo(cachedDeviceInformation[serialNumber]!)
+        }
+        return nil
     }
 
     private func getHeaders() -> HTTPHeaders {
