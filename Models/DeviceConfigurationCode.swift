@@ -10,24 +10,38 @@ import Foundation
 import AppKit
 import SwiftyJSON
 
-struct DeviceConfigurationCode {
+class DeviceConfigurationCode {
     var code: String
     var image: NSImage?
+    var imageURL: URL?
     var skuHint: String
 
     init(code: String, imageURL: URL, skuHint: String) {
+        self.imageURL = imageURL
         self.code = code
-        self.image = NSImage(contentsOf: imageURL)
         self.skuHint = skuHint
+        self.getImage()
+    }
+
+    func getImage() {
+        if let imageURL = self.imageURL {
+            URLSession.shared.dataTask(with: imageURL) { (data, response, error) in
+                guard let data = data, error == nil else { return }
+                if let newImage = NSImage(data: data){
+                    self.image = newImage
+                }
+            }.resume()
+        }
     }
 
     init(_ jsonData: JSON) {
         self.code = jsonData["code"].stringValue
 
         if let imageURL = jsonData["image"]["url"].url {
-            self.image = NSImage(contentsOf: imageURL)!
+            self.imageURL = imageURL
         }
 
         self.skuHint = jsonData["skuHint"].stringValue
+        self.getImage()
     }
 }
