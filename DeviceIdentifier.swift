@@ -54,17 +54,17 @@ class DeviceIdentifier {
     }
 
     public func lookupAppleSerial(_ serialNumber: String, completion: @escaping (DeviceInfo) -> ()) {
-        if(cachedDeviceInformation.keys.contains(serialNumber)){
+        if(cachedDeviceInformation.keys.contains(serialNumber)) {
             completion(DeviceInfo(cachedDeviceInformation[serialNumber]!))
             return
         }
-        
+
         let url = "https://di-api.reincubate.com/v1/\(QueryIdentifier.appleSerialNumber.rawValue)/\(serialNumber)/" as URLConvertible
-        
+
         Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: getHeaders()).responseSwiftyJSON { (dataResponse) in
             if let jsonData = dataResponse.value {
                 let newDeviceInfo = DeviceInfo(jsonData)
-               
+
                 self.cachedDeviceInformation[serialNumber] = jsonData
                 completion(newDeviceInfo)
             }
